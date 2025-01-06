@@ -31,7 +31,7 @@ dependencies {
   implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.4.0'
 }
 
-def commonModules = ['generic', 'authrization']
+def commonModules = ['generic', 'authorization']
 
 commonModules.each { module ->
   tasks.register("build${module.capitalize()}", GradleBuild) {
@@ -51,7 +51,6 @@ test.dependsOn 'copyLibs'
 compileTestJava.dependsOn 'copyLibs'
 bootJar.dependsOn 'copyLibs'
 compileJava.dependsOn 'copyLibs'
-
 
 jar {
   archiveFileName = "swagger.jar"

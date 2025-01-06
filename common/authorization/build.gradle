@@ -55,7 +55,7 @@ dependencies {
     implementation(fileTree(dir: 'libs', include: ['*.jar']))
 }
 
-def commonModules = ['generic', 'swagger']
+def commonModules = ['generic']
 
 commonModules.each { module ->
     tasks.register("build${module.capitalize()}", GradleBuild) {

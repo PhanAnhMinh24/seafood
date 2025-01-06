@@ -55,7 +55,7 @@ dependencies {
   implementation(fileTree(dir: 'libs', include: ['*.jar']))
 }
 
-def commonModules = ['authrization', 'swagger']
+def commonModules = ['authorization']
 
 commonModules.each { module ->
   tasks.register("build${module.capitalize()}", GradleBuild) {
@@ -75,7 +75,6 @@ test.dependsOn 'copyLibs'
 compileTestJava.dependsOn 'copyLibs'
 bootJar.dependsOn 'copyLibs'
 compileJava.dependsOn 'copyLibs'
-
 
 jar {
   archiveFileName = "generic.jar"
