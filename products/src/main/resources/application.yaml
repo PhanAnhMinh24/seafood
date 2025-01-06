@@ -1,0 +1,9 @@
+server:
+  port: 9092
+
+spring:
+  datasource:
+    username: root
+    password: Nguyen
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/perso?characterEncoding=UTF-8&serverTimezone=UTC
