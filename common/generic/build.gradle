@@ -1,0 +1,86 @@
+plugins {
+  id 'java'
+  id 'org.springframework.boot' version '3.3.4'
+  id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group 'org.sales.common'
+version '1.0-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+}
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(21)
+  }
+}
+
+configurations {
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+dependencies {
+  // Các thư viện Spring Boot cần thiết
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+  implementation 'org.springframework.boot:spring-boot-starter-security'
+  implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+  // Thư viện MySQL Connector cho kết nối cơ sở dữ liệu
+  runtimeOnly 'com.mysql:mysql-connector-j'
+
+  // Thư viện kiểm thử
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.springframework.security:spring-security-test'
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+  // Thư viện Lombok (giúp giảm boilerplate code)
+  compileOnly 'org.projectlombok:lombok:1.18.30'
+  annotationProcessor 'org.projectlombok:lombok'
+
+  // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+  implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+  runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+  runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+  // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+  implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+  implementation(fileTree(dir: 'libs', include: ['*.jar']))
+}
+
+def commonModules = ['authrization', 'swagger']
+
+commonModules.each { module ->
+  tasks.register("build${module.capitalize()}", GradleBuild) {
+    dir = "../$module"
+    tasks = ['build']
+  }
+}
+
+tasks.register('copyLibs', Copy) {
+  from commonModules.collect { "../$it/build/libs/" }
+  into 'libs'
+  include '*.jar'
+  dependsOn commonModules.collect { "build${it.capitalize()}" }
+}
+
+test.dependsOn 'copyLibs'
+compileTestJava.dependsOn 'copyLibs'
+bootJar.dependsOn 'copyLibs'
+compileJava.dependsOn 'copyLibs'
+
+
+jar {
+  archiveFileName = "generic.jar"
+}
+
+bootJar {
+  enabled = false
+}

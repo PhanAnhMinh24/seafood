@@ -31,6 +31,28 @@ dependencies {
   implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.4.0'
 }
 
+def commonModules = ['generic', 'authrization']
+
+commonModules.each { module ->
+  tasks.register("build${module.capitalize()}", GradleBuild) {
+    dir = "../$module"
+    tasks = ['build']
+  }
+}
+
+tasks.register('copyLibs', Copy) {
+  from commonModules.collect { "../$it/build/libs/" }
+  into 'libs'
+  include '*.jar'
+  dependsOn commonModules.collect { "build${it.capitalize()}" }
+}
+
+test.dependsOn 'copyLibs'
+compileTestJava.dependsOn 'copyLibs'
+bootJar.dependsOn 'copyLibs'
+compileJava.dependsOn 'copyLibs'
+
+
 jar {
   archiveFileName = "swagger.jar"
 }
