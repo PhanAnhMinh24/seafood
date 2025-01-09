@@ -5,16 +5,16 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ChoXomOnlineQN?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
     username: root
-    password: Minh
+    password: Nguyen
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update  # Ho?c "validate" n?u b?n không mu?n thay ??i c?u trúc b?ng trong quá trình phát tri?n
+      ddl-auto: update  # Ho?c "validate" n?u b?n khï¿½ng mu?n thay ??i c?u trï¿½c b?ng trong quï¿½ trï¿½nh phï¿½t tri?n
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-    show-sql: true  # Hi?n th? câu l?nh SQL khi debug
+    show-sql: true  # Hi?n th? cï¿½u l?nh SQL khi debug
     format-sql: true
 
   flyway:
