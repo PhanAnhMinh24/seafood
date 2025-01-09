@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: generic
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/ChoXomOnlineQN?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    username: root
+    password: Minh
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Ho?c "validate" n?u b?n kh�ng mu?n thay ??i c?u tr�c b?ng trong qu� tr�nh ph�t tri?n
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true  # Hi?n th? c�u l?nh SQL khi debug
+    format-sql: true
+
+  flyway:
+    enabled: true
+    validate-on-migrate: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    locations: classpath:db/migration  # Ch? ??nh th? m?c ch?a file migration
+
+server:
+  port: 8081

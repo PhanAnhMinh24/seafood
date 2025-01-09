@@ -1,0 +1,1 @@
+ALTER TABLE address RENAME COLUMN id_default to is_default;

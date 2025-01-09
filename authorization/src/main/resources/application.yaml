@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: authorization
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/ChoXomOnlineQN?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    username: root
+    password: Minh
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Ho?c "validate" n?u b?n không mu?n thay ??i c?u trúc b?ng trong quá trình phát tri?n
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true  # Hi?n th? câu l?nh SQL khi debug
+    format-sql: true
+
+  flyway:
+    enabled: true
+    validate-on-migrate: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    locations: classpath:db/migration  # Ch? ??nh th? m?c ch?a file migration
+
+server:
+  port: 8083
+
+logging:
+  level:
+    root: INFO
+    org.hibernate: ERROR
+
+app:
+  jwtSecret: bXlTZXJldEtleUxvbmclw6qI8TKZ9WXzH+OaD4jRge7xVtkA7tSy75cFDi5Jw==
+  jwtExpirationMs: 604800000
