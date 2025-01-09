@@ -1,6 +1,6 @@
 package com.sales.authorization.service.auth;
 
-import com.sales.generic.entity.User;
+import com.sales.authorization.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,7 +1,7 @@
 package com.sales.authorization.service.role;
 
+import com.sales.authorization.entity.Role;
 import com.sales.authorization.repository.RoleRepository;
-import com.sales.generic.entity.Role;
 import org.springframework.stereotype.Service;
 
 @Service

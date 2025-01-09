@@ -1,9 +1,8 @@
 package com.sales.authorization.service.user;
 
+import com.sales.authorization.entity.User;
 import com.sales.authorization.repository.UserRepository;
-import com.sales.generic.entity.User;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

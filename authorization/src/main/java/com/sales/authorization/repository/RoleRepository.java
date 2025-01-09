@@ -1,6 +1,6 @@
 package com.sales.authorization.repository;
 
-import com.sales.generic.entity.Role;
+import com.sales.authorization.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

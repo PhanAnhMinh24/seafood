@@ -1,5 +1,8 @@
 package com.sales.authorization.service.auth;
 
+import com.sales.authorization.entity.User;
+import com.sales.authorization.exception.AppException;
+import com.sales.authorization.exception.ErrorCode;
 import com.sales.authorization.pojo.request.LoginRequest;
 import com.sales.authorization.pojo.request.SignupRequest;
 import com.sales.authorization.pojo.response.JwtResponse;
@@ -7,10 +10,7 @@ import com.sales.authorization.repository.UserRepository;
 import com.sales.authorization.service.address.IAddressService;
 import com.sales.authorization.service.role.IRoleService;
 import com.sales.authorization.service.user.UserDetailsImpl;
-import com.sales.authorization.utils.ErrorCode;
 import com.sales.authorization.utils.JwtUtils;
-import com.sales.exception.exception.AppException;
-import com.sales.generic.entity.User;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

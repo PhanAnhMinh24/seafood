@@ -1,6 +1,6 @@
 package com.sales.authorization.service.role;
 
-import com.sales.generic.entity.Role;
+import com.sales.authorization.entity.Role;
 
 public interface IRoleService {
     Role getRoleDefault();

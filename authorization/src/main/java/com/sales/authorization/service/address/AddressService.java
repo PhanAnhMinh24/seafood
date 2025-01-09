@@ -1,8 +1,8 @@
 package com.sales.authorization.service.address;
 
+import com.sales.authorization.entity.Address;
+import com.sales.authorization.entity.User;
 import com.sales.authorization.repository.AddressRepository;
-import com.sales.generic.entity.Address;
-import com.sales.generic.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

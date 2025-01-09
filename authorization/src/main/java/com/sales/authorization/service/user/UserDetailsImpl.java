@@ -1,7 +1,7 @@
 package com.sales.authorization.service.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sales.generic.entity.User;
+import com.sales.authorization.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
