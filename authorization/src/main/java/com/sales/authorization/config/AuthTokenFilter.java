@@ -8,10 +8,10 @@ import com.sales.authorization.utils.constants.CommonConstants;
 import com.sales.authorization.utils.constants.EndpointConstants;
 import com.sales.exception.exception.AppException;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +22,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 
 @Log4j2
@@ -32,36 +33,41 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private final JwtUtils jwtUtils;
     private final UserDetailsServiceImpl userDetailsService;
 
+    @SneakyThrows
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         try {
-            if (!shouldFilterJwt(request)) {
-                String jwt = parseJwt(request);
-                if (org.apache.commons.lang3.StringUtils.isBlank(jwt)) {
-                    setErrorMessage(response, new AppException(ErrorCode.UNAUTHORIZED));
-                    return;
-                }
-                if (jwtUtils.validateJwtToken(jwt)) {
-                    String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            String headerStr = request.getHeader("Authorization");
 
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                    UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(
-                                    userDetails,
-                                    null,
-                                    userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            if (org.apache.commons.lang3.StringUtils.isBlank(headerStr)) {
+                setErrorMessage(response, new AppException(ErrorCode.UNAUTHORIZED));
+                return;
+            }
 
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
+            String jwt = parseJwt(request);
+            if (org.apache.commons.lang3.StringUtils.isBlank(jwt)) {
+                setErrorMessage(response, new AppException(ErrorCode.UNAUTHORIZED));
+                return;
+            }
+            if (jwtUtils.validateJwtToken(jwt)) {
+                String username = jwtUtils.getUserNameFromJwtToken(jwt);
+
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails,
+                                null,
+                                userDetails.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                filterChain.doFilter(request, response);
             }
         } catch (AppException e) {
             logger.error("Cannot set user authentication: {}", e);
             setErrorMessage(response, e);
         }
-
-        filterChain.doFilter(request, response);
     }
 
     private void setErrorMessage(HttpServletResponse response, AppException e) throws IOException {
@@ -84,13 +90,15 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         return null;
     }
 
-    private boolean shouldFilterJwt(HttpServletRequest request) {
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
 
-        String signIn = EndpointConstants.AUTH + EndpointConstants.SIGN_IN;
-        String signUp = EndpointConstants.AUTH + EndpointConstants.SIGN_UP;
+        String[] jwtExcludeEndpoints = {
+                EndpointConstants.AUTH + EndpointConstants.SIGN_IN,
+                EndpointConstants.AUTH + EndpointConstants.SIGN_UP
+        };
 
-        // List of endpoints to ignore JWT filter logic
-        return signIn.equals(path) || signUp.equals(path);
+        return Arrays.stream(jwtExcludeEndpoints).anyMatch(path::startsWith);
     }
 }
