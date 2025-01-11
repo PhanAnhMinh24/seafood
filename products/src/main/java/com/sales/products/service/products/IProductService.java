@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IProductService {
     List<ProductResponse> getLatestProducts();
+
+    List<ProductResponse> getProducts(Long categoryId);
 }
