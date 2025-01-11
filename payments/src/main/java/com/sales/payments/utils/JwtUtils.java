@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -76,5 +77,15 @@ public class JwtUtils {
                 .parseClaimsJws(token)  // Giải mã token
                 .getBody()  // Lấy payload (phần body)
                 .getSubject();  // Trả về username
+    }
+
+    public List<String> getRoles(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("roles", List.class);
+    }
+
+    public Long getUserId(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("user_id", Long.class);
     }
 }
