@@ -11,4 +11,6 @@ public class EndpointConstants {
      * Categories
      * */
     public static final String CATEGORIES = "/categories";
+
+    public static final String PRODUCTS = "/products";
 }
