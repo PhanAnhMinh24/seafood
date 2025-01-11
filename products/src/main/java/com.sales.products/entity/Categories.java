@@ -1,4 +1,4 @@
-package com.sales.authorization.entity;
+package com.sales.products.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
