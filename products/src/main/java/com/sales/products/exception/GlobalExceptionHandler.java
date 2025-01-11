@@ -1,9 +1,5 @@
 package com.sales.products.exception;
 
-import com.sales.orders.exception.AppException;
-import com.sales.orders.exception.ErrorCode;
-import com.sales.orders.exception.ErrorResponse;
-import com.sales.orders.exception.UnauthorizedException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

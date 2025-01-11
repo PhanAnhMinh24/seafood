@@ -11,7 +11,6 @@ import com.sales.authorization.service.address.IAddressService;
 import com.sales.authorization.service.role.IRoleService;
 import com.sales.authorization.service.user.UserDetailsImpl;
 import com.sales.authorization.utils.JwtUtils;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -63,12 +62,13 @@ public class AuthService implements IAuthService {
             );
 
             UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-            String jwt = jwtUtils.generateToken(userPrincipal.getUsername());
 
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
             List<String> roles = userDetails.getAuthorities().stream()
                     .map(item -> item.getAuthority())
                     .collect(Collectors.toList());
+
+            String jwt = jwtUtils.generateToken(userPrincipal.getUsername(), roles);
 
             return new JwtResponse(jwt,
                     userDetails.getId(),
