@@ -8,4 +8,6 @@ public interface IProductService {
     List<ProductResponse> getLatestProducts();
 
     List<ProductResponse> getProducts(Long categoryId);
+
+    ProductResponse getDetail(Long id);
 }
