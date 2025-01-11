@@ -3,7 +3,7 @@ spring:
     name: authorization
 
   datasource:
-    url: jdbc:mysql://localhost:3306/ChoXomOnlineQN?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/seafood_user?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
     username: root
     password: Nguyen
     driver-class-name: com.mysql.cj.jdbc.Driver

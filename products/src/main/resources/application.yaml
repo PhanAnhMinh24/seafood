@@ -3,7 +3,7 @@ spring:
     name: orders
 
   datasource:
-    url: jdbc:mysql://localhost:3306/seafood_order?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/seafood_product?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
     username: root
     password: Nguyen
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -25,7 +25,7 @@ spring:
     locations: classpath:db/migration  # Chỉ định thư mục chứa file migration
 
 server:
-  port: 8084
+  port: 8086
 
 logging:
   level:
