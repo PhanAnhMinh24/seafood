@@ -36,9 +36,10 @@ public class JwtUtils {
         return buildToken(new HashMap<>(), username);
     }
 
-    public String generateToken(String username, List<String> roles) {
+    public String generateToken(Long id, String username, List<String> roles) {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("roles", roles);
+        extraClaims.put("user_id", id);
         return buildToken(extraClaims, username);
     }
 
@@ -83,5 +84,15 @@ public class JwtUtils {
                 .parseClaimsJws(token)  // Giải mã token
                 .getBody()  // Lấy payload (phần body)
                 .getSubject();  // Trả về username
+    }
+
+    public List<String> getRoles(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("roles", List.class);
+    }
+
+    public Long getUserId(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("user_id", Long.class);
     }
 }

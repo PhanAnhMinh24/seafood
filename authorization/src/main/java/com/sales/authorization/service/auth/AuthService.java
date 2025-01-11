@@ -68,7 +68,7 @@ public class AuthService implements IAuthService {
                     .map(item -> item.getAuthority())
                     .collect(Collectors.toList());
 
-            String jwt = jwtUtils.generateToken(userPrincipal.getUsername(), roles);
+            String jwt = jwtUtils.generateToken(userDetails.getId(), userDetails.getUsername(), roles);
 
             return new JwtResponse(jwt,
                     userDetails.getId(),
