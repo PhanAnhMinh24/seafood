@@ -1,12 +1,13 @@
 package com.sales.products.service.products;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.sales.products.entity.Products;
+import com.sales.products.entity.QProducts;
 import com.sales.products.pojo.response.products.ProductResponse;
 import com.sales.products.repository.ProductRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Limit;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,22 +16,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService implements IProductService {
     private final ProductRepository productRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<ProductResponse> getLatestProducts() {
-//        Sort sort = Sort.by(Sort.Direction.ASC, "createdAt");
-//        Pageable pageable = PageRequest.of(0, 12, sort);
-        return productRepository.findAll().stream()
-                .map(item->ProductResponse.builder()
-                        .id(item.getProductId())
-                        .name(item.getName())
-                        .description(item.getDescription())
-                        .price(item.getPrice())
-                        .quantity(item.getQuantity())
-                        .imageUrl(item.getImageUrl())
-                        .sale(item.getSale())
-                        .status(item.getStatus())
-                        .build())
+        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+        QProducts qProducts = QProducts.products;
+        return queryFactory.selectFrom(qProducts)
+                .orderBy(qProducts.createdAt.desc())
+                .limit(12)
+                .fetch()
+                .stream()
+                .map(this::mapProductResponse)
                 .toList();
+    }
+
+    @Override
+    public List<ProductResponse> getProducts(Long categoryId) {
+        return List.of();
+    }
+
+    private ProductResponse mapProductResponse(Products product) {
+        return ProductResponse.builder()
+                .id(product.getProductId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .quantity(product.getQuantity())
+                .imageUrl(product.getImageUrl())
+                .sale(product.getSale())
+                .status(product.getStatus())
+                .build();
     }
 }

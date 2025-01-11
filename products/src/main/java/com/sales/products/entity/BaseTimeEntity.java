@@ -2,6 +2,7 @@ package com.sales.products.entity;
 
 import com.sales.products.utils.DateTimeUtils;
 import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.*;
@@ -12,7 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class BaseTimeEntity {
+@MappedSuperclass
+public abstract class BaseTimeEntity {
     @Column(name = "created_at")
     LocalDateTime createdAt;
 
