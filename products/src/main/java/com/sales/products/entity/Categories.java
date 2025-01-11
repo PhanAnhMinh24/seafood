@@ -1,26 +1,32 @@
 package com.sales.products.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Data
+import java.util.List;
+
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "categories")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Categories extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    private Long categoryId;
+    Long categoryId;
 
     @Column(unique = true, nullable = false)
-    private String name;
+    String name;
 
-    private String description;
+    String description;
 
     @Column(name = "parent_category_id")
-    private Long parentCategoryId;
+    Long parentCategoryId;
+
+    @OneToMany(mappedBy = "category")
+    List<Products> products;
 }
