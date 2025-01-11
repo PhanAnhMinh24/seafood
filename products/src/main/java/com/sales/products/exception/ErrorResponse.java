@@ -1,6 +1,5 @@
 package com.sales.products.exception;
 
-import com.sales.products.exception.ErrorCode;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -33,6 +34,12 @@ public class JwtUtils {
 
     public String generateToken(String username) {
         return buildToken(new HashMap<>(), username);
+    }
+
+    public String generateToken(String username, List<String> roles) {
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("roles", roles);
+        return buildToken(extraClaims, username);
     }
 
     private Key key() {
