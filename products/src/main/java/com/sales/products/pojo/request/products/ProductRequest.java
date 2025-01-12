@@ -1,4 +1,4 @@
-package com.sales.products.pojo.response.products;
+package com.sales.products.pojo.request.products;
 
 import com.sales.products.pojo.data.ProductEnum;
 import lombok.*;
@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductResponse {
+public class ProductRequest {
     Long id;
     String name;
     String description;
@@ -19,5 +19,6 @@ public class ProductResponse {
     String imageUrl;
     Float sale;
     ProductEnum status;
+    Long categoryId;
     Boolean isActive;
 }
