@@ -12,6 +12,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Table(name = "products")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class Products extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,4 +43,7 @@ public class Products extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     ProductEnum status;
+
+    @Column(name = "is_active")
+    Boolean isActive;
 }

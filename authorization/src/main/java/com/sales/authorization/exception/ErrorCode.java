@@ -17,6 +17,10 @@ public enum ErrorCode {
     INVALID_USERNAME_OR_PASSWORD("invalid-username-or-password", HttpStatus.BAD_REQUEST),
     DURING_REGISTRATION_ERROR("during-registration-error", HttpStatus.BAD_REQUEST),
     EMAIL_EXIST("email-exist", HttpStatus.BAD_REQUEST),
+
+    USER_NOT_FOUND("user-not-found", HttpStatus.NOT_FOUND),
+
+    ROLE_NOT_FOUND("role-not-found", HttpStatus.NOT_FOUND),
     ;
 
     private final String message;
