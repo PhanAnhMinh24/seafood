@@ -153,7 +153,8 @@ public class ProductService implements IProductService {
         }
     }
 
-    private Products findById(Long id) {
+    @Override
+    public Products findById(Long id) {
         Optional<Products> products = productRepository.findById(id);
         if (products.isEmpty()) {
             throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);

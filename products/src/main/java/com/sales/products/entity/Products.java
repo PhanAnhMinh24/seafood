@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -46,4 +48,7 @@ public class Products extends BaseTimeEntity {
 
     @Column(name = "is_active")
     Boolean isActive;
+
+    @OneToMany(mappedBy = "product")
+    List<Reviews> reviews;
 }

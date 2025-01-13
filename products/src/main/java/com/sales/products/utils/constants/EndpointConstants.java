@@ -17,4 +17,9 @@ public class EndpointConstants {
 
     public static final String PRODUCTS = "/products";
     public static final String MY_STORE = "/my-store";
+
+    public static final String REVIEWS = "/reviews";
+
+    public static final String USER_PROFILE = "/users/profile";
+
 }

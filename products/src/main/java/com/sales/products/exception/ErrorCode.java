@@ -12,16 +12,12 @@ public enum ErrorCode {
     ACCESS_DENIED("access-denied", HttpStatus.FORBIDDEN),
     UNAUTHORIZED("unauthorized", HttpStatus.UNAUTHORIZED),
 
-    /*
-     * Error User
-     * */
-    INVALID_USERNAME_OR_PASSWORD("invalid-username-or-password", HttpStatus.BAD_REQUEST),
-    DURING_REGISTRATION_ERROR("during-registration-error", HttpStatus.BAD_REQUEST),
-    EMAIL_EXIST("email-exist", HttpStatus.BAD_REQUEST),
-
     PRODUCT_NOT_FOUND("product-not-found", HttpStatus.NOT_FOUND),
 
-    CATEGORY_NOT_FOUND("category-not-found", HttpStatus.NOT_FOUND)
+    CATEGORY_NOT_FOUND("category-not-found", HttpStatus.NOT_FOUND),
+
+    REVIEW_NOT_FOUND("review-not-found", HttpStatus.NOT_FOUND),
+    REVIEW_NOT_YOURS("review-not-yours", HttpStatus.BAD_REQUEST)
     ;
 
     private final String message;

@@ -1,7 +1,7 @@
-package com.sales.products.service;
+package com.sales.orders.service;
 
-import com.sales.products.pojo.request.PagingRequest;
-import com.sales.products.utils.JwtUtils;
+import com.sales.orders.pojo.request.PagingRequest;
+import com.sales.orders.utils.JwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;

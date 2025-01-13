@@ -1,0 +1,1 @@
+ALTER TABLE reviews RENAME COLUMN  seller_id TO user_id;

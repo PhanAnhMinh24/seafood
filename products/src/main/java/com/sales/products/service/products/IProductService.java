@@ -1,5 +1,6 @@
 package com.sales.products.service.products;
 
+import com.sales.products.entity.Products;
 import com.sales.products.pojo.request.PagingRequest;
 import com.sales.products.pojo.request.products.ProductRequest;
 import com.sales.products.pojo.response.products.ProductResponse;
@@ -15,6 +16,8 @@ public interface IProductService {
     Page<ProductResponse> searchFilterProducts(PagingRequest<Long> pagingRequest);
 
     Page<ProductResponse> searchFilterProductsOfStore(PagingRequest<Long> pagingRequest);
+
+    Products findById(Long id);
 
     void save(ProductRequest productRequest);
 

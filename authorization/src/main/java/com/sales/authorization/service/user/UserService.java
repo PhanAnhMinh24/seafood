@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,17 +31,9 @@ public class UserService implements IUserService {
     public UserResponse getProfile() {
         Long userId = BaseService.getUserId(request, jwtUtils);
         User user = findById(userId);
-        boolean isSeller = checkIfSeller(user);
-        return UserResponse.builder()
-                .id(userId)
-                .email(user.getEmail())
-                .fullName(user.getFullName())
-                .phoneNumber(user.getPhoneNumber())
-                .roleId(user.getRole().getRoleId())
-                .roleName(user.getRole().getName())
-                .addressResponses(addressService.getAddress(userId))
-                .isSeller(isSeller)
-                .build();
+        UserResponse userResponse = mapUserResponse(user);
+        userResponse.setAddressResponses(addressService.getAddress(user.getId()));
+        return userResponse;
     }
 
     /**
@@ -74,6 +67,24 @@ public class UserService implements IUserService {
         }
 
         userRepository.save(user);
+    }
+
+    @Override
+    public List<UserResponse> findAll(List<Long> userIds) {
+        return userRepository.findByIdIn(userIds).stream().map(this::mapUserResponse).toList();
+    }
+
+    private UserResponse mapUserResponse(User user) {
+        boolean isSeller = checkIfSeller(user);
+        return UserResponse.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .phoneNumber(user.getPhoneNumber())
+                .roleId(user.getRole().getRoleId())
+                .roleName(user.getRole().getName())
+                .isSeller(isSeller)
+                .build();
     }
 
     private User findById(Long userId) {
