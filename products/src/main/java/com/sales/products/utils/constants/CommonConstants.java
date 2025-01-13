@@ -9,4 +9,5 @@ public class CommonConstants {
     public static final String APPLICATION_JSON_UTF8 = "application/json;charset=UTF-8";
 
     public static final String ROLE_SELLER = "hasAuthority('SELLER')";
+    public static final String EMPTY = "";
 }

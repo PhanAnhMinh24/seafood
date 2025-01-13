@@ -36,3 +36,6 @@ app:
   jwtSecret: bXlTZXJldEtleUxvbmclw6qI8TKZ9WXzH+OaD4jRge7xVtkA7tSy75cFDi5Jw==
   jwtExpirationMs: 604800000
 
+host:
+  authorization: http://localhost:8083
+

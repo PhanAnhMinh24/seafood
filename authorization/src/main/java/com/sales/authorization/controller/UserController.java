@@ -10,6 +10,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(EndpointConstants.USERS)
 @AllArgsConstructor
@@ -21,6 +23,12 @@ public class UserController {
     public ResponseEntity<ApiResult<UserResponse>> getProfile() {
         UserResponse userResponse = userService.getProfile();
         return ResponseEntity.ok().body(ApiResult.success(userResponse));
+    }
+
+    @PostMapping(EndpointConstants.PROFILE)
+    public ResponseEntity<ApiResult<List<UserResponse>>> getProfile(@RequestBody List<Long> userIds) {
+        List<UserResponse> userResponses = userService.findAll(userIds);
+        return ResponseEntity.ok().body(ApiResult.success(userResponses));
     }
 
     @PutMapping(EndpointConstants.PROFILE)

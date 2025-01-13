@@ -1,6 +1,5 @@
-package com.sales.authorization.pojo.response;
+package com.sales.products.pojo.response.users;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -12,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse {
     Long id;
     String email;
@@ -21,6 +19,5 @@ public class UserResponse {
     String profileImage;
     Long roleId;
     String roleName;
-    List<AddressResponse> addressResponses;
     Boolean isSeller;
 }
